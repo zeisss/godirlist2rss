@@ -5,10 +5,10 @@ Puts a list of your files into an rss file
 
 URL | Platform  | Arch
 --- | --------- | ----
-https://apps.moinz.de/fs/fs.php/artifacts/godirlist2rss/latest/godirlist2rss-darwin      | Darwin | Amd64
-https://apps.moinz.de/fs/fs.php/artifacts/godirlist2rss/latest/godirlist2rss-linux-amd64 | Linux  | Amd64
+https://apps.moinz.de/fs/fs.php/artifacts/godirlist2rss/latest/godirlist2rss-darwin      | Darwin | Amd64
+https://apps.moinz.de/fs/fs.php/artifacts/godirlist2rss/latest/godirlist2rss-linux-amd64 | Linux  | Amd64
 https://apps.moinz.de/fs/fs.php/artifacts/godirlist2rss/latest/godirlist2rss-linux-arm6  | Linux  | Arm 6
-https://apps.moinz.de/fs/fs.php/artifacts/godirlist2rss/latest/godirlist2rss-linux-amd7  | Linux  | Arm 7
+https://apps.moinz.de/fs/fs.php/artifacts/godirlist2rss/latest/godirlist2rss-linux-arm7  | Linux  | Arm 7
 
 The builds with a continous build pipeline provided by [wercker.com](http://wercker.com).
 
