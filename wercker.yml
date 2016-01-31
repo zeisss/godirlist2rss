@@ -62,6 +62,7 @@ deploy:
         - script:
             name: Upload Build Artifact 
             code: |
+                find . 
                 cd ./dist
 
                 VERSION=latest
