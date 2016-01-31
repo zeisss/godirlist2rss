@@ -18,12 +18,12 @@ My usage currently looks like this:
 
 ```
 #!/bin/bash
-FSPATH=/feeds/phobos-shows.atom
+FSPATH=/feeds/$HOSTNAME-shows.atom
 
-gowalker \
+godirlist2rss \
   --input-dir=/data/videos \
   --output-format=atom --output-file=listing.atom \
-  --feed-title="Phobos Videos" --feed-author-name=SABNzb \
+  --feed-title="$HOSTNAME Videos" --feed-author-name=SABNzb \
   --feed-public-url=https://apps.moinz.de/fs/fs.php${FSPATH}
 
 fs.bash push ${FSPATH} ./listing.atom public-read

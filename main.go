@@ -25,25 +25,6 @@ var (
 	feedDescription  = pflag.String("feed-description", "Listing of files via gowalker", "Description for the feed document")
 )
 
-type Walker struct {
-	Path string
-}
-
-func (w Walker) Walk() <-chan string {
-	result := make(chan string)
-	go func() {
-		defer close(result)
-
-		filepath.Walk(w.Path, func(path string, info os.FileInfo, err error) error {
-			if err != nil {
-				return err
-			}
-			return nil
-		})
-	}()
-	return result
-}
-
 func main() {
 	pflag.Parse()
 
