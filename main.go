@@ -3,6 +3,7 @@ package main
 import (
 	"io/ioutil"
 	"log"
+	"net/url"
 	"os"
 	"path/filepath"
 	"time"
@@ -17,6 +18,11 @@ var (
 	outputFormat = pflag.String("output-format", "rss", "What format to write? atom or rss")
 
 	feedFilesBaseUrl = pflag.String("feed-filesbaseurl", "http://example.com/feed/", "Base url for the files")
+	feedAuthorName   = pflag.String("feed-author-name", "Anonymous", "The author name for the feed")
+	feedAuthorEmail  = pflag.String("feed-author-email", "anonymous@nowhere.local", "The author email for the feed")
+	feedPublishUrl   = pflag.String("feed-public-url", "http://example.com/feed/", "The url where the feed can be downloaded")
+	feedTitle        = pflag.String("feed-title", "Gowalker File Listing", "Title for the feed document")
+	feedDescription  = pflag.String("feed-description", "Listing of files via gowalker", "Description for the feed document")
 )
 
 type Walker struct {
@@ -43,13 +49,13 @@ func main() {
 
 	now := time.Now()
 	feed := feeds.Feed{
-		Title: "My Files TODO",
+		Title: *feedTitle,
 		Link: &feeds.Link{
-			Href: "http://moinz.de",
+			Href: *feedPublishUrl,
 		},
-		Description: "Description TODO",
+		Description: *feedDescription,
 		Author: &feeds.Author{
-			"Stephan Zeissler", "stephan.zeissler@moinz.de",
+			*feedAuthorName, *feedAuthorEmail,
 		},
 		Created: now,
 	}
@@ -69,14 +75,14 @@ func main() {
 		}
 
 		feed.Items = append(feed.Items, &feeds.Item{
-			Id:    "uri:file:" + path,
+			Id:    "file:" + url.QueryEscape(path),
 			Title: info.Name(),
 			Link: &feeds.Link{
-				Href: *feedFilesBaseUrl + relPath,
+				Href: *feedFilesBaseUrl + url.QueryEscape(relPath),
 			},
 			Description: path,
-			// Author:  &feeds.Author{"Jason Moiron", "jmoiron@jmoiron.net"},
-			Created: info.ModTime(),
+			Author:      &feeds.Author{*feedAuthorName, *feedAuthorEmail},
+			Created:     info.ModTime(),
 		})
 
 		return nil
