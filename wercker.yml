@@ -31,12 +31,25 @@ build:
         name: go get
         code: |
           go get
+          mkdir dist
 
     # Build the project
     - script:
-        name: go build
+        name: go build (linux / ARM6)
         code: |
-          go build ./...
+          GOOS=linux GOARCH=arm GOARM=6 go build -o dist/godirlist2rss-linux-arm6 ./...
+    - script:
+        name: go build (linux / ARM7)
+        code: |
+          GOOS=linux GOARCH=arm GOARM=7 go build -o dist/godirlist2rss-linux-arm7 ./...
+    - script:
+        name: go build (linux / AMD64)
+        code: |
+          GOOS=linux GOARCH=amd64 go build -o dist/godirlist2rss-linux-amd64 ./...
+    - script:
+        name: go build (darwin / AMD64)
+        code: |
+          GOOS=darwin go build -o dist/godirlist2rss-darwin ./...
 
     # Test the project
     - script:
