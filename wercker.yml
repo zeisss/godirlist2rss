@@ -57,3 +57,18 @@ build:
         code: |
           go test ./...
 
+deploy:
+    steps:
+        - script:
+            name: Upload Build Artifact 
+            code: |
+                cd ./dist
+
+                VERSION=latest
+                project=godirlist2rss
+                path="/artifacts/${project}/${VERSION}/"
+                basecurl="curl -sS -u${FS_USER}:${FS_PASSWORD} ${FS_ENDPOINT}"
+                acl=public-read
+
+                ls | xargs -P4 -I{} ${basecurl}${path}{} -XPUT --data-binary @{} -H"X-ACL: ${acl}" -H'Content-Type: application/octet-stream' -i
+                echo $?
