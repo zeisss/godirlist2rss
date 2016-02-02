@@ -59,7 +59,7 @@ func main() {
 			Id:    "file:" + url.QueryEscape(path),
 			Title: info.Name(),
 			Link: &feeds.Link{
-				Href: *feedFilesBaseUrl + url.QueryEscape(relPath),
+				Href: *feedFilesBaseUrl + relPath,
 			},
 			Description: path,
 			Author:      &feeds.Author{*feedAuthorName, *feedAuthorEmail},
