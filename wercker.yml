@@ -47,7 +47,7 @@ deploy:
                 acl=public-read
 
                 # do the upload
-                find ./dist | while read file do
+                find ./dist | while read file; do
                   path="/artifacts/${name}/${version}/${name}.tar.gz"
 
                   # debug output
