@@ -48,7 +48,7 @@ deploy:
 
                 # do the upload
                 find ./dist | while read file; do
-                  path="/artifacts/${name}/${version}/${name}.tar.gz"
+                  path="/artifacts/${name}/${version}/$(basename $file)"
 
                   # debug output
                   info "Local file: $(ls -lah $file)"
