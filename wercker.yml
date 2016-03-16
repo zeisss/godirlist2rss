@@ -9,6 +9,12 @@ build:
           go get
           mkdir $WERCKER_OUTPUT_DIR/dist
 
+    # Test the project
+    - script:
+        name: go test
+        code: |
+          go test ./...
+
     # Build the project
     - script:
         name: go build (linux / ARM6)
@@ -27,40 +33,33 @@ build:
         code: |
           GOOS=darwin go build -o $WERCKER_OUTPUT_DIR/dist/godirlist2rss-darwin ./...
 
-    # Test the project
-    - script:
-        name: go test
-        code: |
-          go test ./...
-
 deploy:
     steps:
-        - script:
-            name: Upload Build Artifact
-            code: |
-                test -z "$FS_USER" && fail "Env FS_USER missing."
-                test -z "$FS_PASSWORD" && fail "Env FS_PASSWORD missing."
-                test -z "$FS_ENDPOINT" && fail "Env FS_ENDPOINT missing."
-
-                name=godirlist2rss
-                version=latest
-                acl=public-read
-
-                # do the upload
-                find ./dist | while read file; do
-                  path="/artifacts/${name}/${version}/$(basename $file)"
-
-                  # debug output
-                  info "Local file: $(ls -lah $file)"
-                  setMessage "Artifact: $(ls -lah $file)"
-                  info "ACL: ${acl}"
-                  info "Remote path: ${path}"
-
-                  basecurl="curl -sS -u${FS_USER}:${FS_PASSWORD} ${FS_ENDPOINT}"
-                  upload=$(${basecurl}${path}.ignore -XPUT --data-binary @$file -H"X-ACL: ${acl}" -H'Content-Type: application/octet-stream' --output $WERCKER_REPORT_ARTIFACTS_DIR/upload_result.json -w '%{http_code}')
-                  if [ "$upload" -eq 201 ]; then
-                    success "Upload completed."
-                  else
-                    fail "upload: $(cat $WERCKER_REPORT_ARTIFACTS_DIR/upload_result.json)"
-                  fi
-                done
+      - zeisss/mfs-upload@0.1.3:
+          url: $FS_ENDPOINT
+          file: $WERCKER_OUTPUT_DIR/dist/godirlist2rss-linux-arm6
+          path: /artifacts/godirlist2rss/latest/godirlist2rss-linux-arm6
+          username: $FS_USER
+          password: $FS_PASSWORD
+          acl: public-read
+      - zeisss/mfs-upload@0.1.3:
+          url: $FS_ENDPOINT
+          file: $WERCKER_OUTPUT_DIR/dist/godirlist2rss-linux-arm7
+          path: /artifacts/godirlist2rss/latest/godirlist2rss-linux-arm7
+          username: $FS_USER
+          password: $FS_PASSWORD
+          acl: public-read
+      - zeisss/mfs-upload@0.1.3:
+          url: $FS_ENDPOINT
+          file: $WERCKER_OUTPUT_DIR/dist/godirlist2rss-linux-amd64
+          path: /artifacts/godirlist2rss/latest/godirlist2rss-linux-amd64
+          username: $FS_USER
+          password: $FS_PASSWORD
+          acl: public-read
+      - zeisss/mfs-upload@0.1.3:
+          url: $FS_ENDPOINT
+          file: $WERCKER_OUTPUT_DIR/dist/godirlist2rss-linux-darwin
+          path: /artifacts/godirlist2rss/latest/godirlist2rss-linux-darwin
+          username: $FS_USER
+          password: $FS_PASSWORD
+          acl: public-read
