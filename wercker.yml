@@ -58,7 +58,7 @@ deploy:
         acl: public-read
     - zeisss/mfs-upload@0.1.3:
         url: $FS_ENDPOINT
-        file: ./dist/godirlist2rss-linux-darwin
+        file: ./dist/godirlist2rss-darwin
         path: /artifacts/godirlist2rss/latest/godirlist2rss-darwin
         username: $FS_USER
         password: $FS_PASSWORD
