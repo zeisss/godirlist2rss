@@ -34,32 +34,32 @@ build:
           GOOS=darwin go build -o $WERCKER_OUTPUT_DIR/dist/godirlist2rss-darwin ./...
 
 deploy:
-    steps:
-      - zeisss/mfs-upload@0.1.3:
-          url: $FS_ENDPOINT
-          file: $WERCKER_OUTPUT_DIR/dist/godirlist2rss-linux-arm6
-          path: /artifacts/godirlist2rss/latest/godirlist2rss-linux-arm6
-          username: $FS_USER
-          password: $FS_PASSWORD
-          acl: public-read
-      - zeisss/mfs-upload@0.1.3:
-          url: $FS_ENDPOINT
-          file: $WERCKER_OUTPUT_DIR/dist/godirlist2rss-linux-arm7
-          path: /artifacts/godirlist2rss/latest/godirlist2rss-linux-arm7
-          username: $FS_USER
-          password: $FS_PASSWORD
-          acl: public-read
-      - zeisss/mfs-upload@0.1.3:
-          url: $FS_ENDPOINT
-          file: $WERCKER_OUTPUT_DIR/dist/godirlist2rss-linux-amd64
-          path: /artifacts/godirlist2rss/latest/godirlist2rss-linux-amd64
-          username: $FS_USER
-          password: $FS_PASSWORD
-          acl: public-read
-      - zeisss/mfs-upload@0.1.3:
-          url: $FS_ENDPOINT
-          file: $WERCKER_OUTPUT_DIR/dist/godirlist2rss-linux-darwin
-          path: /artifacts/godirlist2rss/latest/godirlist2rss-linux-darwin
-          username: $FS_USER
-          password: $FS_PASSWORD
-          acl: public-read
+  steps:
+    - zeisss/mfs-upload@0.1.3:
+        url: $FS_ENDPOINT
+        file: ./dist/godirlist2rss-linux-arm6
+        path: /artifacts/godirlist2rss/latest/godirlist2rss-linux-arm6
+        username: $FS_USER
+        password: $FS_PASSWORD
+        acl: public-read
+    - zeisss/mfs-upload@0.1.3:
+        url: $FS_ENDPOINT
+        file: ./dist/godirlist2rss-linux-arm7
+        path: /artifacts/godirlist2rss/latest/godirlist2rss-linux-arm7
+        username: $FS_USER
+        password: $FS_PASSWORD
+        acl: public-read
+    - zeisss/mfs-upload@0.1.3:
+        url: $FS_ENDPOINT
+        file: ./dist/godirlist2rss-linux-amd64
+        path: /artifacts/godirlist2rss/latest/godirlist2rss-linux-amd64
+        username: $FS_USER
+        password: $FS_PASSWORD
+        acl: public-read
+    - zeisss/mfs-upload@0.1.3:
+        url: $FS_ENDPOINT
+        file: ./dist/godirlist2rss-linux-darwin
+        path: /artifacts/godirlist2rss/latest/godirlist2rss-linux-darwin
+        username: $FS_USER
+        password: $FS_PASSWORD
+        acl: public-read
