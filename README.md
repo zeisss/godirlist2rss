@@ -17,3 +17,13 @@ godirlist2rss \
 ```
 
 This is executed by a crontab entry regularly. This way the feel contains an entry for every file. If new files appear, new entries are generated. My RSS reader notifies me then. Each entry will link to the file (based on `--feed-filesbaseurl`).
+
+## Building
+
+```terminal
+# for your own platform
+go build -o godirliss2rss ./cmd
+
+# or cross compile
+GOOS=linux go build -o godirlist2rss ./cmd
+```
