@@ -10,7 +10,7 @@ import (
 	"github.com/gorilla/feeds"
 )
 
-type BuildFlags struct {
+type Flags struct {
 	FeedTitle               string
 	FeedDescription         string
 	PublishedURL            string // url where the feed will be availble
@@ -25,7 +25,7 @@ type BuildFlags struct {
 	OutputMode   os.FileMode
 }
 
-func (flags BuildFlags) BuildFeed() error {
+func (flags Flags) BuildFeed() error {
 	now := time.Now()
 	feed := feeds.Feed{
 		Title: flags.FeedTitle,
