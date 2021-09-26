@@ -36,7 +36,8 @@ func main() {
 		},
 		Description: *feedDescription,
 		Author: &feeds.Author{
-			*feedAuthorName, *feedAuthorEmail,
+			Name:  *feedAuthorName,
+			Email: *feedAuthorEmail,
 		},
 		Created: now,
 	}
